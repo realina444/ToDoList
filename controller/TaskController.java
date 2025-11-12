@@ -27,7 +27,7 @@ public class TaskController {
      * The task requires a title; date are optional.
      *
      * @param title the title of the new task (required)
-     * @param  date of the task (optional)
+     * @param  date of the task (required)
      * @throws IllegalArgumentException if the title is null or blank
      */
     

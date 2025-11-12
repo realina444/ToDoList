@@ -3,8 +3,8 @@ package model;
 import java.time.LocalDate;
 
 /**
- * Represents an immutable task entity with an ID, title, description,
- * due date, and completion status.
+ * Represents an immutable task entity with an ID, title,
+ * date, and completion status.
  */
 public final class Task {
     private final TaskId id;
@@ -17,7 +17,7 @@ public final class Task {
      *
      * @param id the unique identifier of the task; a new one is generated if null
      * @param title the title of the task (must not be null or blank)
-     * @param date of the task (may be null)
+     * @param date of the task (must not be null or blank)
      * @param completed the completion status of the task
      * @throws IllegalArgumentException if the title is null or blank
      */
@@ -47,7 +47,7 @@ public final class Task {
     /**
      * Returns the  date of this task.
      *
-     * @return the date, or null if not set
+     * @return the date
      */
     public LocalDate Date() { return Date; }
 
@@ -70,7 +70,7 @@ public final class Task {
 
     /**
      * Returns a string representation of this task,
-     * including its status, title, and date if available.
+     * including its status, title, and date 
      *
      * @return a string representing the task
      */

@@ -9,6 +9,16 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+/**
+ * The TaskStore class is responsible for storing and managing
+ * all tasks in the To-Do List application.
+ * 
+ * It handles adding, deleting, updating, searching, and filtering tasks,
+ * and also saves and loads tasks from a JSON file.
+ * 
+ * This class uses the Singleton design pattern to make sure
+ * there is only one shared TaskStore in the app.
+ */
 
 public class TaskStore {
 
@@ -254,13 +264,13 @@ public class TaskStore {
 
                 String idStr = extractString(obj, "id");
                 String title = extractString(obj, "title");
-                LocalDate due = extractDate(obj, "Date");
+                LocalDate date = extractDate(obj, "Date");
                 Boolean completed = extractBool(obj, "completed");
                 if (completed == null) completed = false;
                 if (title == null || title.isBlank()) continue;
 
                 TaskId tid = (idStr == null || idStr.isBlank()) ? new TaskId() : new TaskId(idStr);
-                Task t = new Task(tid, title, due, completed);
+                Task t = new Task(tid, title, date, completed);
                 tasks.put(t.id(), t);
             }
                notifyObservers();
