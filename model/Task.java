@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public final class Task {
     private final TaskId id;
     private final String title;
-    private final LocalDate dueDate;
+    private final LocalDate Date;
     private final boolean completed;
 
     /**
@@ -17,17 +17,16 @@ public final class Task {
      *
      * @param id the unique identifier of the task; a new one is generated if null
      * @param title the title of the task (must not be null or blank)
-     * @param description the description of the task (may be null)
-     * @param dueDate the due date of the task (may be null)
+     * @param date of the task (may be null)
      * @param completed the completion status of the task
      * @throws IllegalArgumentException if the title is null or blank
      */
-    public Task(TaskId id, String title, LocalDate dueDate, boolean completed) {
+    public Task(TaskId id, String title, LocalDate Date, boolean completed) {
         if (title == null || title.isBlank())
             throw new IllegalArgumentException("title required");
         this.id = (id == null ? new TaskId() : id);
         this.title = title;
-        this.dueDate = dueDate;
+        this.Date = Date;
         this.completed = completed;
     }
 
@@ -46,11 +45,11 @@ public final class Task {
     public String title() { return title; }
 
     /**
-     * Returns the due date of this task.
+     * Returns the  date of this task.
      *
-     * @return the due date, or null if not set
+     * @return the date, or null if not set
      */
-    public LocalDate dueDate() { return dueDate; }
+    public LocalDate Date() { return Date; }
 
     /**
      * Returns the completion status of this task.
@@ -66,18 +65,18 @@ public final class Task {
      * @return a new Task instance with the updated completion flag
      */
     public Task withCompleted(boolean c) {
-        return new Task(id, title, dueDate, c);
+        return new Task(id, title, Date, c);
     }
 
     /**
      * Returns a string representation of this task,
-     * including its status, title, and due date if available.
+     * including its status, title, and date if available.
      *
      * @return a string representing the task
      */
     @Override
     public String toString() {
         String base = (completed ? "[✓] " : "[ ] ") + title;
-        return dueDate == null ? base : base + " (" + dueDate + ")";
+        return Date == null ? base : base + " (" + Date + ")";
     }
 }

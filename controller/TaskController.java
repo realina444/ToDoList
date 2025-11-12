@@ -27,14 +27,14 @@ public class TaskController {
      * The task requires a title; description and due date are optional.
      *
      * @param title the title of the new task (required)
-     * @param description the description of the task (optional)
-     * @param dueDate the due date of the task (optional)
+     * @param  date of the task (optional)
      * @throws IllegalArgumentException if the title is null or blank
      */
-    public void addTask(String title, LocalDate dueDate) {
+    
+    public void addTask(String title, LocalDate Date) {
         if (title == null || title.isBlank())
             throw new IllegalArgumentException("Title is required");
-        Task t = new Task(new TaskId(), title.trim(), dueDate, false);
+        Task t = new Task(new TaskId(), title.trim(), Date, false);
         store.addTask(t);
     }
 
@@ -59,8 +59,7 @@ public class TaskController {
 
     /**
      * Updates an existing task with new information.
-     * Used for editing a task’s title, description, or due date.
-     *
+     * Used for editing a task’s title or date.
      * @param updated the updated Task object containing new details
      */
     public void editTask(Task updated) { 

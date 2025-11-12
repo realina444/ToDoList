@@ -137,7 +137,7 @@ public class TaskListView extends JPanel implements TaskObserver {
                 return;
             }
             try {
-                Task updated = new Task(sel.id(), newTitle, sel.dueDate(), sel.completed());
+                Task updated = new Task(sel.id(), newTitle, sel.Date(), sel.completed());
                 controller.editTask(updated);
                 status.setText("Renamed to: " + newTitle);
             } catch (IllegalArgumentException ex) {
@@ -198,7 +198,7 @@ public class TaskListView extends JPanel implements TaskObserver {
             JLabel c = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof Task) {
                 Task t = (Task) value;
-                LocalDate due = t.dueDate();
+                LocalDate due = t.Date();
                 boolean isToday = (due != null && due.equals(LocalDate.now()));
                 if (!isSelected) {
                     if (t.completed()) {

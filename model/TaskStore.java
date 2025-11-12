@@ -73,7 +73,7 @@ public class TaskStore {
      * Returns a list of tasks that match a given search query and filter type.
      *
      * @param q the search text (part of the title to search for)
-     * @param f the filter type (ALL, TODAY, OVERDUE, or COMPLETED)
+     * @param f the filter type (ALL, TODAY, COMPLETED)
      * @return a list of tasks that match both the search text and filter criteria
      *
      * If the search query is empty, all tasks are returned.
@@ -87,12 +87,11 @@ public class TaskStore {
      * Applies the given filter to a base list of tasks.
      *
      * @param base the list of tasks to filter
-     * @param f the filter type (ALL, TODAY, OVERDUE, or COMPLETED)
+     * @param f the filter type (ALL, TODAY, COMPLETED)
      * @return a list of tasks that satisfy the given filter
      *
-     * Filters tasks based on their due date and completion state:
+     * Filters tasks based on their date and completion state:
      * - TODAY: tasks due today
-     * - OVERDUE: tasks with past due dates and not completed
      * - COMPLETED: tasks marked as completed
      * - ALL: returns all tasks without filtering
      */
@@ -102,7 +101,7 @@ public class TaskStore {
         LocalDate today = LocalDate.now();
         List<Task> result = new ArrayList<>();
         for (Task t : base){
-            LocalDate d = t.dueDate();
+            LocalDate d = t.Date();
             switch (f){
                 case TODAY:
                     if (d != null && d.equals(today)) result.add(t);
@@ -151,7 +150,7 @@ public class TaskStore {
 
 /**
  * Removes a task with the given ID.
- *
+ * 
  * @param id the ID of the task to remove
  * Removes the task if found, notifies observers, and updates the saved file.
  */
@@ -192,7 +191,7 @@ public class TaskStore {
             sb.append("{");
             sb.append("\"id\":\"").append(esc(t.id().value())).append("\",");
             sb.append("\"title\":\"").append(esc(t.title())).append("\",");
-            sb.append("\"dueDate\":").append(t.dueDate()==null ? "null" : ("\""+t.dueDate()+"\"")).append(",");
+            sb.append("\"dueDate\":").append(t.Date()==null ? "null" : ("\""+t.Date()+"\"")).append(",");
             sb.append("\"completed\":").append(t.completed());
             sb.append("}");
         }
@@ -255,7 +254,7 @@ public class TaskStore {
 
                 String idStr = extractString(obj, "id");
                 String title = extractString(obj, "title");
-                LocalDate due = extractDate(obj, "dueDate");
+                LocalDate due = extractDate(obj, "Date");
                 Boolean completed = extractBool(obj, "completed");
                 if (completed == null) completed = false;
                 if (title == null || title.isBlank()) continue;
