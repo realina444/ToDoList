@@ -98,7 +98,7 @@ public class TaskListView extends JPanel implements TaskObserver {
                 return;
             }
             try {
-                controller.addTask(title, "", LocalDate.now());
+                controller.addTask(title, LocalDate.now());
                 status.setText("Added: " + title);
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Cannot add task", JOptionPane.WARNING_MESSAGE);
@@ -137,7 +137,7 @@ public class TaskListView extends JPanel implements TaskObserver {
                 return;
             }
             try {
-                Task updated = new Task(sel.id(), newTitle, sel.description(), sel.dueDate(), sel.completed());
+                Task updated = new Task(sel.id(), newTitle, sel.dueDate(), sel.completed());
                 controller.editTask(updated);
                 status.setText("Renamed to: " + newTitle);
             } catch (IllegalArgumentException ex) {

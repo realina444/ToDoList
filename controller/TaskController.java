@@ -31,10 +31,10 @@ public class TaskController {
      * @param dueDate the due date of the task (optional)
      * @throws IllegalArgumentException if the title is null or blank
      */
-    public void addTask(String title, String description, LocalDate dueDate) {
+    public void addTask(String title, LocalDate dueDate) {
         if (title == null || title.isBlank())
             throw new IllegalArgumentException("Title is required");
-        Task t = new Task(new TaskId(), title.trim(), description, dueDate, false);
+        Task t = new Task(new TaskId(), title.trim(), dueDate, false);
         store.addTask(t);
     }
 

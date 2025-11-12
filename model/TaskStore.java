@@ -48,7 +48,7 @@ public class TaskStore {
  * @return a list of all tasks
  */
     public List<Task> all(){ return new ArrayList<>(tasks.values()); }
-    public enum Filter { ALL, TODAY, OVERDUE, COMPLETED } 
+    public enum Filter { ALL, TODAY, COMPLETED } 
     /**
      * Searches for tasks whose titles contain the given query text.
      *
@@ -106,9 +106,6 @@ public class TaskStore {
             switch (f){
                 case TODAY:
                     if (d != null && d.equals(today)) result.add(t);
-                    break;
-                case OVERDUE:
-                    if (d != null && d.isBefore(today) && !t.completed()) result.add(t);
                     break;
                 case COMPLETED:
                     if (t.completed()) result.add(t);
@@ -195,7 +192,6 @@ public class TaskStore {
             sb.append("{");
             sb.append("\"id\":\"").append(esc(t.id().value())).append("\",");
             sb.append("\"title\":\"").append(esc(t.title())).append("\",");
-            sb.append("\"description\":\"").append(esc(t.description())).append("\",");
             sb.append("\"dueDate\":").append(t.dueDate()==null ? "null" : ("\""+t.dueDate()+"\"")).append(",");
             sb.append("\"completed\":").append(t.completed());
             sb.append("}");
@@ -259,14 +255,13 @@ public class TaskStore {
 
                 String idStr = extractString(obj, "id");
                 String title = extractString(obj, "title");
-                String desc  = extractString(obj, "description");
                 LocalDate due = extractDate(obj, "dueDate");
                 Boolean completed = extractBool(obj, "completed");
                 if (completed == null) completed = false;
                 if (title == null || title.isBlank()) continue;
 
                 TaskId tid = (idStr == null || idStr.isBlank()) ? new TaskId() : new TaskId(idStr);
-                Task t = new Task(tid, title, desc, due, completed);
+                Task t = new Task(tid, title, due, completed);
                 tasks.put(t.id(), t);
             }
                notifyObservers();
