@@ -24,7 +24,7 @@ public class TaskController {
 
     /**
      * Adds a new task to the TaskStore.
-     * The task requires a title; description and due date are optional.
+     * The task requires a title; date are optional.
      *
      * @param title the title of the new task (required)
      * @param  date of the task (optional)
